@@ -58,9 +58,9 @@ export const getRankListXHR = (type, successCB, failureCB) => {
           } 
       }
   }
+  xhr.open('GET', url, true);
   xhr.setRequestHeader('Accept', 'application/json');
   xhr.setRequestHeader('cache-control', 'no-cache');
-  xhr.open('GET', url, true);
   xhr.send(null);
 }
 

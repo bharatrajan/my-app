@@ -1,8 +1,7 @@
 [
   {
     "percentage": 1000,
-    //"label": "Level 3 Communications, Inc.",
-    "label": "Level 3 Communications, Inc. First &middot; Second",
+    "label": "Level 3 Communications, Inc.",
     "change": 0,
     "rank": 1,
     "asn": 3356
