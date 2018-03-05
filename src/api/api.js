@@ -5,19 +5,19 @@ import peeringRankList from '../mocks/peeringRankList';
 import retailRankList from '../mocks/retailRankList';
 import wholesaleRankList from '../mocks/wholesaleRankList';
 
-
-
-
 //API path
 const apiServer = "/api"
 
+//Request headers
 const headers = {
   'Accept': 'application/json',
   'cache-control': 'no-cache',
 }
 
-let isDevEnv = (window.location.host.indexOf('localhost') === 0)
+//Dev enviroment deduction
+export const isDevEnv = (window.location.host.indexOf('localhost:3000') === 0)
 
+//Response factory
 let mockResponse = {
     backbone : backboneRankList,
     customer : customerRankList,
@@ -27,7 +27,8 @@ let mockResponse = {
     wholesale : wholesaleRankList
   }
 
-export const getRankList = (type) =>{
+//Promise based API calls  
+export const getRankList = type => {
   if(isDevEnv){
     return new Promise((res) => {
       res(mockResponse[type])
@@ -39,3 +40,25 @@ export const getRankList = (type) =>{
     .catch(error => error) 
   }
 }    
+
+//Simple XHR API calls
+export const getRankListXHR = (type, successCB, failureCB) => {
+  let url = `mocks/${type}.json`;
+  let xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function() {
+      if (xhr.readyState == XMLHttpRequest.DONE) {
+          try{
+            let resp = JSON.parse(xhr.responseText)
+            successCB(resp)
+          }catch(err){
+            failureCB(err)
+          } 
+      }
+  }
+  //xhr.setRequestHeader('Accept', 'application/json');
+  //xhr.setRequestHeader('cache-control', 'no-cache');
+
+  xhr.open('GET', url, true);
+  xhr.send(null);
+}
+
