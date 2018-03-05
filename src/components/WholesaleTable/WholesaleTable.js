@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './WholesaleTable.css';
 import SingleRecord from '../SingleRecord/SingleRecord'
-import {getWholesaleRankList} from '../../api/api'
+import {getRankList} from '../../api/api'
 
 class WholesaleTable extends Component {
 
@@ -45,7 +45,7 @@ class WholesaleTable extends Component {
   * @returns none
   */  
   componentDidMount = () => {
-    getWholesaleRankList()
+    getRankList('wholesale')
       .then(this.successHandler)
       .catch(this.errorHandler)
   }; 

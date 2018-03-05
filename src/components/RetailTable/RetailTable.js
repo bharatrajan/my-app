@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './RetailTable.css';
 import SingleRecord from '../SingleRecord/SingleRecord'
-import {getRetailRankList} from '../../api/api'
+import {getRankList} from '../../api/api'
 
 class RetailTable extends Component {
 
@@ -44,7 +44,7 @@ class RetailTable extends Component {
   * @returns none
   */  
   componentDidMount = () => {
-    getRetailRankList()
+    getRankList('retail')
       .then(this.successHandler)
       .catch(this.errorHandler)
   }; 

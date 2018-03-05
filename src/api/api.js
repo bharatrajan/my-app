@@ -1,84 +1,41 @@
-//Dev API path to mock JSON
-const mockPath = "/mocks"
+import backboneRankList from '../mocks/backboneRankList';
+import customerRankList from '../mocks/customerRankList';
+import growthRankList from '../mocks/growthRankList';
+import peeringRankList from '../mocks/peeringRankList';
+import retailRankList from '../mocks/retailRankList';
+import wholesaleRankList from '../mocks/wholesaleRankList';
 
-//Production API path
-const apiPath = ""
 
+
+
+//API path
+const apiServer = "/api"
 
 const headers = {
   'Accept': 'application/json',
   'cache-control': 'no-cache',
 }
 
-const isDevEnv = (window.location.hostname.indexOf("localhost") === 0
-                  || window.location.hostname.includes("github.io"))
+let isDevEnv = (window.location.host.indexOf('localhost') === 0)
 
-let fullAPIpath = {}
-
-if(isDevEnv){
-  fullAPIpath = {
-    backbone : `${mockPath}/backbone.json`,
-    customer : `${mockPath}/customer.json`,
-    growth : `${mockPath}/growth.json`,
-    peering : `${mockPath}/peering.json`,
-    retail : `${mockPath}/retail.json`,
-    wholesale : `${mockPath}/wholesale.json`
+let mockResponse = {
+    backbone : backboneRankList,
+    customer : customerRankList,
+    growth : growthRankList,
+    peering : peeringRankList,
+    retail : retailRankList,
+    wholesale : wholesaleRankList
   }
-}else{
-  fullAPIpath = {
-    backbone : "",
-    customer : "",
-    growth : "",
-    peering : "",
-    retail : "",
-    wholesale : ""
-  }  
-}           
 
-
-export const getCustomerRankList = () =>
-  fetch(fullAPIpath.customer, {headers})
-    .then(res => res.json)
-    .then(data => data.books)
-    .catch(error => error)    
-    
-
-export const getBackboneRankList = () =>
-    fetch(fullAPIpath.backbone, {
-      cache: 'no-cache', 
-      headers,
+export const getRankList = (type) =>{
+  if(isDevEnv){
+    return new Promise((res) => {
+      res(mockResponse[type])
     })
+  }else{
+    fetch(`${apiServer}/${type}`, { headers })
     .then(res => res.json())
-    .then(data => data.list)
-    .catch(error => error)  
-
-export const getCustomerRankList1 = () =>
-  fetch(fullAPIpath.customer, headers)
-  .then(res => res.json())
-  .then(data => data.list)
-  .catch(error => error)  
-  
-export const getGrowthRankList = () =>
-  fetch(fullAPIpath.growth, { headers })
-    .then(res => res.json())
-    .then(data => data.list)
-    .catch(error => error)  
-    
-export const getPeeringRankList = () =>
-  fetch(fullAPIpath.peering, { headers })
-    .then(res => res.json())
-    .then(data => data.list)
-    .catch(error => error)  
-    
-export const getRetailRankList = () =>
-  fetch(fullAPIpath.retail, { headers })
-    .then(res => res.json())
-    .then(data => data.list)
-    .catch(error => error)  
-    
-export const getWholesaleRankList = () =>
-  fetch(fullAPIpath.wholesale, { headers })
-    .then(res => res.json())
-    .then(data => data.list)
-    .catch(error => error)              
-    
+    .then(data => data.books)
+    .catch(error => error) 
+  }
+}    

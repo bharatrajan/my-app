@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './PeeringTable.css';
 import SingleRecord from '../SingleRecord/SingleRecord'
-import {getPeeringRankList} from '../../api/api'
+import {getRankList} from '../../api/api'
 
 class PeeringTable extends Component {
 
@@ -44,7 +44,7 @@ class PeeringTable extends Component {
   * @returns none
   */  
   componentDidMount = () => {
-    getPeeringRankList()
+    getRankList('peering')
       .then(this.successHandler)
       .catch(this.errorHandler)
   }; 

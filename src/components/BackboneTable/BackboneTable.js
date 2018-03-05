@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './BackboneTable.css';
 import SingleRecord from '../SingleRecord/SingleRecord'
-import {getBackboneRankList} from '../../api/api'
+import {getRankList} from '../../api/api'
 
 class BackboneTable extends Component {
 
@@ -43,8 +43,8 @@ class BackboneTable extends Component {
   * @type : lifecycle
   * @returns none
   */  
-  componentDidMount = () => {
-    getBackboneRankList()
+ componentDidMount = () => {
+    getRankList('backbone')
       .then(this.successHandler)
       .catch(this.errorHandler)
   }; 

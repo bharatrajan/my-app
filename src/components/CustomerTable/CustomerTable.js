@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './CustomerTable.css';
 import SingleRecord from '../SingleRecord/SingleRecord'
-import {getCustomerRankList} from '../../api/api'
+import {getRankList} from '../../api/api'
 
 class CustomerTable extends Component {
 
@@ -45,7 +45,7 @@ class CustomerTable extends Component {
   * @returns none
   */  
   componentDidMount = () => {
-    getCustomerRankList()
+    getRankList('customer')
       .then(this.successHandler)
       .catch(this.errorHandler)
   }; 
@@ -88,7 +88,6 @@ class CustomerTable extends Component {
         </div>
       )
     }
-    
 
     else if(typeof apiError != 'undefined'){
       return(
@@ -99,7 +98,6 @@ class CustomerTable extends Component {
         </div>  
       )
     }
-
 
     else if(typeof rankList != 'undefined' && Array.isArray(rankList) && rankList.length>0){
       return(

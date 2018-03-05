@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './GrowthTable.css';
 import SingleRecord from '../SingleRecord/SingleRecord'
-import {getGrowthRankList} from '../../api/api'
+import {getRankList} from '../../api/api'
 
 class GrowthTable extends Component {
 
@@ -45,7 +45,7 @@ class GrowthTable extends Component {
   * @returns none
   */  
   componentDidMount = () => {
-    getGrowthRankList()
+    getRankList('growth')
       .then(this.successHandler)
       .catch(this.errorHandler)
   }; 
