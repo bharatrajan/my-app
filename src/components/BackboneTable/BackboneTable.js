@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './BackboneTable.css';
 import SingleRecord from '../SingleRecord/SingleRecord'
-import {getRankList} from '../../api/api'
+import {getRankList, isDevEnv, getRankListXHR} from '../../api/api'
 
 class BackboneTable extends Component {
 
@@ -44,9 +44,12 @@ class BackboneTable extends Component {
   * @returns none
   */  
  componentDidMount = () => {
+  if(isDevEnv)
     getRankList('backbone')
       .then(this.successHandler)
       .catch(this.errorHandler)
+  else
+    getRankListXHR('backbone', this.successHandler, this.errorHandler)
   }; 
 
   /**

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './RetailTable.css';
 import SingleRecord from '../SingleRecord/SingleRecord'
-import {getRankList} from '../../api/api'
+import {getRankList, isDevEnv, getRankListXHR} from '../../api/api'
 
 class RetailTable extends Component {
 
@@ -44,9 +44,12 @@ class RetailTable extends Component {
   * @returns none
   */  
   componentDidMount = () => {
-    getRankList('retail')
-      .then(this.successHandler)
-      .catch(this.errorHandler)
+    if(isDevEnv)
+      getRankList('retail')
+        .then(this.successHandler)
+        .catch(this.errorHandler)
+    else
+      getRankListXHR('retail', this.successHandler, this.errorHandler)
   }; 
 
   /**

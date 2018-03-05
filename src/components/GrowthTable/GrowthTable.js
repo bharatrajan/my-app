@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './GrowthTable.css';
 import SingleRecord from '../SingleRecord/SingleRecord'
-import {getRankList} from '../../api/api'
+import {getRankList, isDevEnv, getRankListXHR} from '../../api/api'
 
 class GrowthTable extends Component {
 
@@ -45,9 +45,12 @@ class GrowthTable extends Component {
   * @returns none
   */  
   componentDidMount = () => {
-    getRankList('growth')
-      .then(this.successHandler)
-      .catch(this.errorHandler)
+    if(isDevEnv)
+      getRankList('growth')
+        .then(this.successHandler)
+        .catch(this.errorHandler)
+    else
+      getRankListXHR('growth', this.successHandler, this.errorHandler)
   }; 
 
   /**
