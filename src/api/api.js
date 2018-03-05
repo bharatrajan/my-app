@@ -27,19 +27,22 @@ let mockResponse = {
     wholesale : wholesaleRankList
   }
 
-//Promise based API calls  
+//NON-AJAX way only for development
 export const getRankList = type => {
-  if(isDevEnv){
-    return new Promise((res) => {
-      res(mockResponse[type])
-    })
-  }else{
-    fetch(`${apiServer}/${type}`, { headers })
+  return new Promise((res) => {
+    res(mockResponse[type])
+  })
+}    
+
+//fetch based API Calling
+//Should be used in Production
+//Can be used with a real API
+export const fetchRankList = type => {
+  fetch(`${apiServer}/${type}`, { headers })
     .then(res => res.json())
     .then(data => data.books)
-    .catch(error => error) 
-  }
-}    
+    .catch(error => error)   
+}
 
 //Simple XHR API calls
 export const getRankListXHR = (type, successCB, failureCB) => {
@@ -55,9 +58,8 @@ export const getRankListXHR = (type, successCB, failureCB) => {
           } 
       }
   }
-  //xhr.setRequestHeader('Accept', 'application/json');
-  //xhr.setRequestHeader('cache-control', 'no-cache');
-
+  xhr.setRequestHeader('Accept', 'application/json');
+  xhr.setRequestHeader('cache-control', 'no-cache');
   xhr.open('GET', url, true);
   xhr.send(null);
 }

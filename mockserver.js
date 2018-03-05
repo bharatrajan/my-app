@@ -4,7 +4,7 @@ var cors = require('cors');
 var bodyParser = require('body-parser')
 
 //Static content rendering 
-app.use(express.static('./'));
+app.use(express.static('./build'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
